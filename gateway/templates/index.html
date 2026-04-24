@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RetailVision AI — Shelf Product Analyzer</title>
+  <meta name="description" content="AI-powered retail shelf product detection and brand grouping pipeline." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+
+<body>
+  <!-- Background canvas for animated particles -->
+  <canvas id="bg-canvas"></canvas>
+
+  <div class="app-wrapper">
+
+    <!-- ── HEADER ── -->
+    <header class="header">
+      <div class="logo">
+        <span class="logo-icon">⬡</span>
+        <span class="logo-text">RetailVision<span class="logo-accent">AI</span></span>
+      </div>
+      <div class="header-badge">
+        <span class="dot dot--green"></span> Pipeline Active
+      </div>
+    </header>
+
+    <!-- ── HERO ── -->
+    <section class="hero">
+      <h1 class="hero-title">Shelf Intelligence<br /><span class="gradient-text">at the Speed of Light</span></h1>
+      <p class="hero-sub">Upload a retail shelf image. Our AI pipeline detects every product and clusters them by brand
+        — in milliseconds.</p>
+    </section>
+
+    <!-- ── PIPELINE DIAGRAM ── -->
+    <div class="pipeline-bar">
+      <div class="pipe-step active" id="step-upload"><span class="pipe-icon"></span>Upload</div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step" id="step-detect"><span class="pipe-icon"></span>Detect</div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step" id="step-group"><span class="pipe-icon"></span>Group</div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step" id="step-viz"><span class="pipe-icon"></span>Visualize</div>
+    </div>
+
+    <!-- ── UPLOAD CARD ── -->
+    <div class="card upload-card" id="upload-section">
+      <div class="drop-zone" id="drop-zone">
+        <div class="drop-icon"></div>
+        <p class="drop-title">Drop an image here</p>
+        <p class="drop-sub">or click to browse</p>
+        <input type="file" id="file-input" accept="image/*" hidden />
+        <button class="btn btn--outline" onclick="document.getElementById('file-input').click()">Choose File</button>
+      </div>
+
+      <div class="preview-area" id="preview-area" style="display:none">
+        <img id="preview-img" alt="Preview" />
+        <div class="preview-meta" id="preview-meta"></div>
+        <div class="btn-row">
+          <button class="btn btn--ghost" id="clear-btn">✕ Clear</button>
+          <button class="btn btn--primary" id="analyze-btn">⚡ Analyze</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PROGRESS ── -->
+    <div class="progress-container" id="progress-container" style="display:none">
+      <div class="spinner"></div>
+      <p id="progress-label">Processing&hellip;</p>
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="progress-fill"></div>
+      </div>
+    </div>
+
+    <!-- ── RESULTS ── -->
+    <div id="results-section" style="display:none">
+
+      <!-- Stats row -->
+      <div class="stats-row" id="stats-row"></div>
+
+      <!-- Visualization -->
+      <div class="card viz-card">
+        <div class="card-header">
+          <span class="card-title">Annotated Visualization</span>
+          <a id="download-link" class="btn btn--sm btn--outline" download>⬇ Download</a>
+        </div>
+        <img id="result-img" alt="Annotated result" class="result-image" />
+      </div>
+
+      <!-- Brand groups -->
+      <div class="card">
+        <div class="card-header"><span class="card-title">Brand Groups</span></div>
+        <div class="groups-grid" id="groups-grid"></div>
+      </div>
+
+      <!-- JSON toggle -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Raw JSON Response</span>
+          <button class="btn btn--sm btn--ghost" id="toggle-json">Show JSON</button>
+        </div>
+        <pre class="json-block" id="json-block" style="display:none"></pre>
+      </div>
+    </div>
+
+    <!-- ── ERROR ── -->
+    <div class="error-card" id="error-card" style="display:none">
+      <span class="error-icon"></span>
+      <p id="error-msg"></p>
+    </div>
+
+    <footer class="footer">RetailVision AI Pipeline &bull; OpenCV + DBSCAN &bull; Pure Python</footer>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+
+</html>

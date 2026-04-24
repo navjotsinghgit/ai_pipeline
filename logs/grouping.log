@@ -1,0 +1,10 @@
+ * Serving Flask app 'app'
+ * Debug mode: off
+2026-04-24 08:05:07,835 [grouping] INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5002
+ * Running on http://192.168.31.117:5002
+2026-04-24 08:05:07,835 [grouping] INFO [33mPress CTRL+C to quit[0m
+2026-04-24 08:05:36,740 [grouping] INFO Grouped 28 products into 10 brand groups
+2026-04-24 08:05:36,740 [grouping] INFO [6b3ad794-1255-4fc1-91fc-f10a1bf0eb2b] Grouping done in 51.86ms
+2026-04-24 08:05:36,741 [grouping] INFO 127.0.0.1 - - [24/Apr/2026 08:05:36] "POST /group HTTP/1.1" 200 -

@@ -1,0 +1,54 @@
+version: "3.9"
+
+services:
+
+  detection:
+    build:
+      context: ./detection_service
+    image: retailvision-detection
+    container_name: detection_service
+    ports:
+      - "5001:5001"
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:5001/health" ]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+
+  grouping:
+    build:
+      context: ./grouping_service
+    image: retailvision-grouping
+    container_name: grouping_service
+    ports:
+      - "5002:5002"
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:5002/health" ]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+
+  gateway:
+    build:
+      context: ./gateway
+    image: retailvision-gateway
+    container_name: gateway_service
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./outputs:/app/outputs
+      - ./visualization:/app/../visualization
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DETECTION_URL=http://detection:5001
+      - GROUPING_URL=http://grouping:5002
+    depends_on:
+      - detection
+      - grouping
+    restart: unless-stopped
